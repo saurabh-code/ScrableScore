@@ -29,9 +29,13 @@ public class MatchWithWildCard implements TokenMatcher {
 	private List<String> removeWildCard(List<String> l, String wildCard) {
 		List<String> nn = new ArrayList<String>();
 		for (String s: l) {
-			StringBuilder sb = new StringBuilder(s);
-			sb.setCharAt(s.indexOf(wildCard), wildCard.toLowerCase().charAt(0));
-			nn.add(sb.toString());
+			if(s.indexOf(wildCard.charAt(0)) > -1) {
+				s = s.replaceFirst(wildCard, wildCard.toLowerCase());
+			}
+			nn.add(s);
+//			StringBuilder sb = new StringBuilder(s);
+//			sb.setCharAt(s.indexOf(wildCard), wildCard.toLowerCase().charAt(0));
+//			nn.add(sb.toString());
 		}
 		return nn;
 	}

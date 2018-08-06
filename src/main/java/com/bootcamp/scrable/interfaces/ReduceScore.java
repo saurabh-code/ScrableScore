@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface ReduceScore {
 
-	public int apply(Map<String, Integer> m);
+	public String apply(Map<String, Integer> m);
 }

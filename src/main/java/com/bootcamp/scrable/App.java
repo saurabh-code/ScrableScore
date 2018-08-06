@@ -1,10 +1,9 @@
 package com.bootcamp.scrable;
 
 import java.io.FileNotFoundException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import com.bootcamp.scrable.components.Match;
 import com.bootcamp.scrable.components.SowPodsReader;
 import com.bootcamp.scrable.interfaces.FileReader;
 
@@ -21,6 +20,10 @@ public class App
     		FileReader fileReader = new SowPodsReader();
     		List<String> sowPods = fileReader.fetchLinesFromFile(SOW_PODS);
     		
-    		System.out.println(sowPods);
+    		Match matcher = new Match();
+    		List<String> s2 = matcher.filterOnSize(sowPods, "APPLE");
+    		
+    		
+    		System.out.println(s2);
     }
 }

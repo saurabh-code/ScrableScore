@@ -3,7 +3,9 @@ package com.bootcamp.scrable.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Match {
+import com.bootcamp.scrable.interfaces.TokenMatcher;
+
+public class MatchWithoutWildCard implements TokenMatcher {
     public Boolean matchWord(String word, String token){
 
         int hash[] = new int[256];
@@ -23,13 +25,13 @@ public class Match {
         return true;
     }
     
-    public List<String> filterOnSize(List<String> l, String token) {
-    		List<String> validWords = new ArrayList<String>();
-    		for (String w : l) {
-    			if (matchWord(w, token)) {
-    				validWords.add(w);
-    			}
-    		}
-    		return validWords;
-    }
+	public List<String> apply(String token, List<String> unfiltered) {
+		List<String> validWords = new ArrayList<String>();
+		for (String w : unfiltered) {
+			if (matchWord(w, token)) {
+				validWords.add(w);
+			}
+		}
+		return validWords;	
+	}
 }

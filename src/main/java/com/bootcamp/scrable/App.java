@@ -4,12 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
-import com.bootcamp.scrable.components.Match;
+import com.bootcamp.scrable.components.MatchWithWildCard;
+import com.bootcamp.scrable.components.MatchWithoutWildCard;
 import com.bootcamp.scrable.components.ReduceToMax;
 import com.bootcamp.scrable.components.SowPodsReader;
+import com.bootcamp.scrable.components.TokenMatcherFactory;
 import com.bootcamp.scrable.components.WordScore;
 import com.bootcamp.scrable.interfaces.FileReader;
 import com.bootcamp.scrable.interfaces.ReduceScore;
+import com.bootcamp.scrable.interfaces.TokenMatcher;
 
 /**
  * Hello world!
@@ -26,16 +29,22 @@ public class App
     		FileReader fileReader = new SowPodsReader();
     		List<String> sowPods = fileReader.fetchLinesFromFile(SOW_PODS);
     		
-    		Match matcher = new Match();
-    		List<String> s2 = matcher.filterOnSize(sowPods, "SIMPLE");
+    		MatchWithoutWildCard withoutWildCard = new MatchWithoutWildCard();
+    		TokenMatcher withWildCard = new MatchWithWildCard(withoutWildCard);
     		
-    		Map<String, Integer> scores = WordScore.getScoreForAll(s2, score_of_letter);
+    		TokenMatcherFactory factory = new TokenMatcherFactory(withoutWildCard);
+    		
     		
     		ReduceScore reducer = new ReduceToMax();
     		
-    		String bestWord = reducer.apply(scores);
-    		
-    		System.out.println(scores);
-    		System.out.println(bestWord);
+    		System.out.println(getBestWord("AAB#", sowPods, factory, reducer).toUpperCase());
+    }
+    
+    public static String getBestWord (String token, List<String> l, TokenMatcherFactory matcher, ReduceScore reduceScore) {
+    		List<String> filterd = matcher.getMatcher(token).apply(token.replace("#", ""), l);
+    		System.out.println(filterd);
+    		Map<String, Integer> scores = WordScore.getScoreForAll(filterd, score_of_letter);
+    		String bestWord = reduceScore.apply(scores);
+    		return bestWord;
     }
 }

@@ -11,7 +11,9 @@ public class WordScore {
         for(String s : allWords) {
             int score = 0;
             for(int i=0;i<s.length();i++) {
-                score += letterScore[(int)s.charAt(i) - (int)'A'];
+            		if((int)s.charAt(i) >= (int)'A' && (int)s.charAt(i) <= (int)'Z') {
+            			score += letterScore[(int)s.charAt(i) - (int)'A'];           			
+            		}
             }
             scoreForAllWords.put(s, score);
         }

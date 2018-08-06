@@ -1,5 +1,8 @@
 package com.bootcamp.scrable;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Hello world!
  *

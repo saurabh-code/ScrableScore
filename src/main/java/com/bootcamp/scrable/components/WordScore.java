@@ -6,12 +6,12 @@ import java.util.HashMap;
 
 public class WordScore {
 
-    public static Map<String, Integer> getScoreForAll(List<String> allWords, Map<Character, Integer> letterScore) {
+    public static Map<String, Integer> getScoreForAll(List<String> allWords, int[] letterScore) {
         Map<String, Integer> scoreForAllWords = new HashMap<String, Integer>();
         for(String s : allWords) {
             int score = 0;
             for(int i=0;i<s.length();i++) {
-                score += letterScore.get(s.charAt(i));
+                score += letterScore[(int)s.charAt(i) - (int)'A'];
             }
             scoreForAllWords.put(s, score);
         }

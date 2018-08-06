@@ -1,9 +1,12 @@
 package com.bootcamp.scrable.components;
 
-public class Match {
-    public Boolean matchWord( String word, String token){
+import java.util.ArrayList;
+import java.util.List;
 
-        int hash[] = new int[26];
+public class Match {
+    public Boolean matchWord(String word, String token){
+
+        int hash[] = new int[256];
 
         for( int i = 0; i < token.length(); i++){
             hash[( token.charAt(i) - 'A') ]++;
@@ -18,5 +21,15 @@ public class Match {
         }
 
         return true;
+    }
+    
+    public List<String> filterOnSize(List<String> l, String token) {
+    		List<String> validWords = new ArrayList<String>();
+    		for (String w : l) {
+    			if (matchWord(w, token)) {
+    				validWords.add(w);
+    			}
+    		}
+    		return validWords;
     }
 }
